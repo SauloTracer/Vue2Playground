@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>X.T.D.L.</v-card-title>
     <v-card-text>
-      <v-form ref="formTodo">
+      <v-form ref="formTodo" v-on:submit.prevent="() => {}">
         <v-row>
           <v-col cols="4">
             <v-text-field

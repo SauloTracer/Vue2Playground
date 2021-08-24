@@ -1,15 +1,20 @@
 <template>
-  <v-card v-show="timer">
+  <v-card>
     <v-card-title>Timer</v-card-title>
 
     <v-card-text>
       <v-spacer></v-spacer>
-      <v-col cols="2">
-        <v-text-field v-model="time" type="number" label="Seconds" />
-      </v-col>
-      <v-col cols="1">
-        <v-btn @click="addTimer" primary>START</v-btn>
-      </v-col>
+      <v-row>
+        <v-col cols="2">
+          <v-text-field v-model="title" label="Title" />
+        </v-col>
+        <v-col cols="2">
+          <v-text-field v-model="time" type="number" label="Seconds" />
+        </v-col>
+        <v-col cols="1">
+          <v-btn @click="addTimer" primary>START</v-btn>
+        </v-col>
+      </v-row>
       <v-spacer></v-spacer>
       <!-- Concluídos -->
       <div ref="container"></div>
@@ -26,7 +31,8 @@ export default {
   name: "Timer",
   data() {
     return {
-      time: 10,
+      time: 60,
+      title: "",
       message: "",
       comps: [],
     };
@@ -35,9 +41,16 @@ export default {
     addTimer() {
       var ComponentClass = Vue.extend(timer);
       var instance = new ComponentClass({
-        propsData: { time: Number(this.time), message: String(this.message) },
+        propsData: {
+          time: Number(this.time),
+          message: String(this.message),
+          title: String(this.title),
+        },
       });
       instance.$mount();
+      instance.$on("close", () =>
+        this.$refs.container.removeChild(instance.$el)
+      );
       this.$refs.container.appendChild(instance.$el);
     },
   },

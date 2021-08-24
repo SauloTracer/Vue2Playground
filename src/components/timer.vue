@@ -10,11 +10,20 @@
         height="18"
         :reverse="$vuetify.rtl"
       >
-        <span v-if="!finished" style="margin-right: 10px">{{
-          toTime(current)
-        }}</span>
+        <span v-if="!finished" style="margin-right: 10px"
+          >{{ title }} {{ toTime(current) }}</span
+        >
         <span>{{ message }}</span>
       </v-progress-linear>
+    </v-col>
+    <v-spacer></v-spacer>
+    <v-col cols="2">
+      <v-btn small icon color="green" class="mx-2" @click="startCountdown()">
+        R<v-icon> mdi-cache </v-icon>
+      </v-btn>
+      <v-btn small icon color="red" class="mx-2" @click="destroy()">
+        X<v-icon> mdi-close </v-icon>
+      </v-btn>
     </v-col>
     <v-spacer></v-spacer>
   </v-row>
@@ -33,6 +42,11 @@ export default {
       required: false,
       default: "Timer concluído!",
     },
+    title: {
+      type: String,
+      required: false,
+      default: "",
+    },
   },
   data: () => ({
     current: 0,
@@ -49,12 +63,19 @@ export default {
       return new Date(seconds * 1000).toISOString().substr(11, 8);
     },
     step: function (timestamp) {
+      if (this.finished) return;
       if (this.start === undefined) this.start = timestamp;
       const elapsed = timestamp - this.start;
 
       if (elapsed >= this.time * 1000) {
         this.start = undefined;
         this.message = "Yay! Timer finalizado!";
+
+        const synth = window.speechSynthesis;
+        synth.speak(
+          new SpeechSynthesisUtterance(`Timer ${this.title} finalizado!`)
+        );
+
         this.finished = true;
         return;
       }
@@ -69,6 +90,10 @@ export default {
       this.finished = false;
       this.message = "";
       requestAnimationFrame(this.step);
+    },
+    destroy() {
+      this.finished = true;
+      this.$emit("close");
     },
   },
   mounted() {
