@@ -14,6 +14,16 @@
           <v-col cols="2">
             <v-btn color="blue" elevation="5" @click="addTask()">Add</v-btn>
           </v-col>
+          <v-col cols="2">
+            <v-btn color="blue" elevation="5" @click="checkAll()"
+              >Check All</v-btn
+            >
+          </v-col>
+          <v-col cols="2">
+            <v-btn color="blue" elevation="5" @click="uncheckAll()"
+              >Uncheck All</v-btn
+            >
+          </v-col>
         </v-row>
       </v-form>
       <v-row>
@@ -102,6 +112,16 @@ export default {
     },
     saveTasks() {
       localStorage.setItem("tasks", JSON.stringify(this.tasks));
+    },
+    changeAll(value) {
+      this.tasks.map((t) => (t.done = value));
+      this.saveTasks();
+    },
+    checkAll() {
+      this.changeAll(true);
+    },
+    uncheckAll() {
+      this.changeAll(false);
     },
   },
 };
