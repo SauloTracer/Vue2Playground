@@ -19,10 +19,10 @@
     <v-spacer></v-spacer>
     <v-col cols="2">
       <v-btn small icon color="green" class="mx-2" @click="startCountdown()">
-        R<v-icon> mdi-cache </v-icon>
+        <v-icon> mdi-cached </v-icon>
       </v-btn>
       <v-btn small icon color="red" class="mx-2" @click="destroy()">
-        X<v-icon> mdi-close </v-icon>
+        <v-icon> mdi-close </v-icon>
       </v-btn>
     </v-col>
     <v-spacer></v-spacer>

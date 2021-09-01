@@ -4,7 +4,7 @@
     <v-card-text>
       <v-form ref="formTodo" v-on:submit.prevent="() => {}">
         <v-row>
-          <v-col cols="4">
+          <v-col cols="6">
             <v-text-field
               label="New task"
               v-model="task.title"
@@ -12,17 +12,19 @@
             ></v-text-field>
           </v-col>
           <v-col cols="2">
-            <v-btn color="blue" elevation="5" @click="addTask()">Add</v-btn>
+            <v-btn color="blue" elevation="5" @click="addTask()">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
           </v-col>
           <v-col cols="2">
-            <v-btn color="blue" elevation="5" @click="checkAll()"
-              >Check All</v-btn
-            >
+            <v-btn color="blue" elevation="5" @click="checkAll()">
+              <v-icon>mdi-checkbox-multiple-marked-outline</v-icon>
+            </v-btn>
           </v-col>
           <v-col cols="2">
-            <v-btn color="blue" elevation="5" @click="uncheckAll()"
-              >Uncheck All</v-btn
-            >
+            <v-btn color="blue" elevation="5" @click="uncheckAll()">
+              <v-icon>mdi-checkbox-multiple-blank-outline</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
       </v-form>
