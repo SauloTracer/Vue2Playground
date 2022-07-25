@@ -4,9 +4,17 @@
       <v-row>
         <v-col cols="6">
           <timers v-show="timers" />
+          <br />
+          <percent v-show="percent" />
+          <br />
+          <date-diff v-show="dateDiff" />
+          <br />
+          <notes v-show="notes" />
         </v-col>
         <v-col cols="6">
           <todo v-show="todo" />
+          <br />
+          <kg-ounce v-show="kgOunce" />
         </v-col>
       </v-row>
     </div>
@@ -16,10 +24,14 @@
 <script>
 import timers from "./components/timers";
 import todo from "./components/todo";
+import percent from "./components/percent";
+import dateDiff from "./components/dateDiff";
+import notes from "./components/notes";
+import kgOunce from "./components/kgOunce.vue";
 
 export default {
-  name: "Timer",
-  components: { todo, timers },
+  name: "Tracer",
+  components: { todo, timers, percent, dateDiff, notes, kgOunce },
   data() {
     return {
       time: 10,
@@ -27,6 +39,10 @@ export default {
       comps: [],
       timers: true,
       todo: true,
+      percent: true,
+      dateDiff: true,
+      kgOunce: true,
+      notes: true,
     };
   },
 };

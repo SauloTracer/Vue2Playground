@@ -9,6 +9,7 @@
               label="New task"
               v-model="task.title"
               :rules="rules.obrigatorio"
+              @keypress.enter="addTask"
             ></v-text-field>
           </v-col>
           <v-col cols="2">
@@ -26,6 +27,8 @@
               <v-icon>mdi-checkbox-multiple-blank-outline</v-icon>
             </v-btn>
           </v-col>
+          <!-- sort-bool-ascending-variant -->
+          <!-- sort-bool-descending-variant -->
         </v-row>
       </v-form>
       <v-row>
@@ -94,6 +97,7 @@ export default {
         this.tasks.push({ ...this.task });
         this.$refs.formTodo.reset();
         this.saveTasks();
+        document.activeElement.blur();
       } else {
         console.log("Erros de validação no form.");
       }

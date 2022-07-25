@@ -4,27 +4,42 @@
 
     <v-card-text>
       <v-spacer></v-spacer>
-      <v-row>
-        <v-col cols="6">
-          <v-text-field v-model="title" label="Title" />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="2">
-          <v-text-field v-model="horas" type="number" label="HH" />
-        </v-col>
-        <v-col cols="2">
-          <v-text-field v-model="minutos" type="number" label="MM" />
-        </v-col>
-        <v-col cols="2">
-          <v-text-field v-model="segundos" type="number" label="SS" />
-        </v-col>
-        <v-col cols="1">
-          <v-btn @click="addTimer" primary>
-            <v-icon>mdi-play</v-icon>
-          </v-btn>
-        </v-col>
-      </v-row>
+      <v-form ref="form">
+        <v-row>
+          <v-col cols="4">
+            <v-text-field v-model="title" label="Title" />
+          </v-col>
+          <v-col cols="2">
+            <v-text-field
+              v-model="horas"
+              type="number"
+              label="HH"
+              @keypress.enter="addTimer"
+            />
+          </v-col>
+          <v-col cols="2">
+            <v-text-field
+              v-model="minutos"
+              type="number"
+              label="MM"
+              @keypress.enter="addTimer"
+            />
+          </v-col>
+          <v-col cols="2">
+            <v-text-field
+              v-model="segundos"
+              type="number"
+              label="SS"
+              @keypress.enter="addTimer"
+            />
+          </v-col>
+          <v-col cols="1">
+            <v-btn @click="addTimer" primary ref="btnAddTimer">
+              <v-icon>mdi-play</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-form>
       <v-spacer></v-spacer>
       <!-- Concluídos -->
       <div ref="container"></div>
@@ -52,13 +67,14 @@ export default {
   },
   methods: {
     addTimer() {
+      if (this.time == 0) return;
       var ComponentClass = Vue.extend(timer);
       var instance = new ComponentClass({
         vuetify,
         propsData: {
           time: Number(this.time),
           message: String(this.message),
-          title: String(this.title),
+          title: String(this.title ?? ""),
         },
       });
       instance.$mount();
@@ -66,6 +82,8 @@ export default {
         this.$refs.container.removeChild(instance.$el)
       );
       this.$refs.container.appendChild(instance.$el);
+      this.$refs.form.reset();
+      document.activeElement.blur();
     },
   },
   computed: {

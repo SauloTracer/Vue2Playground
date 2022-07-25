@@ -10,9 +10,9 @@
         height="18"
         :reverse="$vuetify.rtl"
       >
-        <span v-if="!finished" style="margin-right: 10px"
-          >{{ title }} {{ toTime(current) }}</span
-        >
+        <span v-if="!finished" style="margin-right: 10px">
+          {{ title }} {{ toTime(current) }}
+        </span>
         <span>{{ message }}</span>
       </v-progress-linear>
     </v-col>
@@ -69,7 +69,7 @@ export default {
 
       if (elapsed >= this.time * 1000) {
         this.start = undefined;
-        this.message = "Yay! Timer finalizado!";
+        this.message = `Timer ${this.title} finalizado!`;
 
         const synth = window.speechSynthesis;
         synth.speak(
